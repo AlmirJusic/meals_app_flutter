@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './screens/tabs_screen.dart';
 
 import './screens/meal_detail_screen.dart';
 
@@ -15,23 +16,24 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'DeliMeals',
       theme: ThemeData(
-          canvasColor: const Color.fromRGBO(255, 254, 229, 1),
-          textTheme: ThemeData.light().textTheme.copyWith(
-              bodyText1: const TextStyle(
-                color: Color.fromRGBO(20, 51, 51, 1),
-              ),
-              bodyText2: const TextStyle(color: Color.fromRGBO(20, 51, 51, 1)),
-              headline6: const TextStyle(
-                fontSize: 20,
-                fontFamily: 'RobotoCondensed',
-                fontWeight: FontWeight.bold,
-              )),
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.pink)
-              .copyWith(secondary: Colors.amber)),
+        canvasColor: const Color.fromRGBO(255, 254, 229, 1),
+        textTheme: ThemeData.light().textTheme.copyWith(
+            bodyText1: const TextStyle(
+              color: Color.fromRGBO(20, 51, 51, 1),
+            ),
+            bodyText2: const TextStyle(color: Color.fromRGBO(20, 51, 51, 1)),
+            headline6: const TextStyle(
+              fontSize: 20,
+              fontFamily: 'RobotoCondensed',
+              fontWeight: FontWeight.bold,
+            )),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.pink)
+            .copyWith(secondary: Colors.amber),
+      ),
       // home: CategoriesScreen(),
       initialRoute: '/', // default is '/'
       routes: {
-        '/': (ctx) => const CategoriesScreen(),
+        '/': (ctx) => const TabsScreen(), //const CategoriesScreen(),
         CategoryMealsScreen.routeName: (ctx) => const CategoryMealsScreen(),
         MealDetailScreen.routeName: (ctx) => const MealDetailScreen(),
       },
