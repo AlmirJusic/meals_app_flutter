@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app_flutter/screens/favorites_screen.dart';
+import './favorites_screen.dart';
 import './categories_screen.dart';
 
 class TabsScreen extends StatefulWidget {
@@ -10,36 +10,49 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
+  final List<Map<String, Object>> _pages = [
+    {
+      'page': const CategoriesScreen(),
+      'title': 'Categories',
+    },
+    {
+      'page': const FavoritesScreen(),
+      'title': 'Your Favorite',
+    }
+  ];
+  var _selectePageIndex = 0;
+  void _selectPage(int index) {
+    setState(() {
+      _selectePageIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Meals'),
-          bottom: const TabBar(
-            tabs: <Widget>[
-              Tab(
-                icon: Icon(
-                  Icons.category,
-                ),
-                text: 'Categories',
-              ),
-              Tab(
-                icon: Icon(
-                  Icons.favorite,
-                ),
-                text: 'Favorites',
-              ),
-            ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(_pages[_selectePageIndex]['title'] as String),
+      ),
+      body: _pages[_selectePageIndex]['page'] as Widget,
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: _selectPage,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Theme.of(context).colorScheme.secondary,
+        currentIndex: _selectePageIndex,
+        //type: BottomNavigationBarType.shifting,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.category),
+            label: 'Categories',
+            //backgroundColor: Theme.of(context).colorScheme.primary,
           ),
-        ),
-        body: const TabBarView(
-          children: <Widget>[
-            CategoriesScreen(),
-            FavoritesScreen(),
-          ],
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.star),
+            label: 'Favorites',
+            //backgroundColor: Theme.of(context).colorScheme.primary,
+          ),
+        ],
       ),
     );
   }
