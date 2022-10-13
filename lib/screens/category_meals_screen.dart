@@ -2,17 +2,11 @@ import 'package:flutter/material.dart';
 import '../models/meal.dart';
 import '../widgets/meal_item.dart';
 
-import '../dummy_data.dart';
-
 class CategoryMealsScreen extends StatefulWidget {
-  // final String categoryId;
-  // final String categoryTitle;
-
-  // const CategoriesMealsScreen(this.categoryId, this.categoryTitle, {super.key});
-
   static const routeName = '/category-meals';
 
-  const CategoryMealsScreen({super.key});
+  final List<Meal> availableMeals;
+  const CategoryMealsScreen(this.availableMeals, {super.key});
 
   @override
   State<CategoryMealsScreen> createState() => _CategoryMealsScreenState();
@@ -24,11 +18,6 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
   bool _loadedInitData = false;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   void didChangeDependencies() {
     if (!_loadedInitData) {
       final routeArgs =
@@ -36,12 +25,12 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
 
       categoryTitle = routeArgs['title'];
       final categoryId = routeArgs['id'];
-      displayedMeals = DUMMY_MEALS.where((meal) {
+      displayedMeals = widget.availableMeals.where((meal) {
         return meal.categories.contains(categoryId);
       }).toList();
       _loadedInitData = true;
     }
-    // TODO: implement didChangeDependencies
+
     super.didChangeDependencies();
   }
 
